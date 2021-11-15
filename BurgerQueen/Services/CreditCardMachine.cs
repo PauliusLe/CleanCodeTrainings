@@ -19,7 +19,7 @@ namespace BurgerQueen.Services
 
         public void Charge()
         {
-            Connect("127.0.0.1", CardNumber, ExpiresMonth, ExpiresYear, NameOnCard);
+            ConnectToGateway("127.0.0.1", CardNumber, ExpiresMonth, ExpiresYear, NameOnCard);
             Charge(AmountToCharge);            
         }
 
@@ -28,7 +28,7 @@ namespace BurgerQueen.Services
             //Charge amount
         }
 
-        private void Connect(string gatewayAddress, string cardNumber, string expiresMonth, string expiresYear, string nameOnCard)
+        private void ConnectToGateway(string gatewayAddress, string cardNumber, string expiresMonth, string expiresYear, string nameOnCard)
         {
             try
             {

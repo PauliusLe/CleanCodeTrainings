@@ -6,28 +6,28 @@ namespace BurgerQueen.Services
 {
     public class CookingService
     {
-        private readonly Dictionary<string, ItemData> _restaurantMenu = new Dictionary<string, ItemData>
+        private readonly Dictionary<string, MenuItem> restaurantMenu = new Dictionary<string, MenuItem>
         {
-            {Const.Drink, new DrinkCola()},
-            {Const.CheeseBurger, new CheeseBurger()},
-            {Const.CheeseBurgerMeal, new CheeseBurgerMeal()}
+            {Constants.Drink, new Drink()},
+            {Constants.CheeseBurger, new CheeseBurger()},
+            {Constants.CheeseBurgerMeal, new CheeseBurgerMeal()}
         };
 
-        public ItemData Prepare(string id)
+        public MenuItem Prepare(string itemId)
         {
-            var m = _restaurantMenu[id];
-            if (m is CheeseBurgerMeal || m is CheeseBurger)
+            var menuItem = restaurantMenu[itemId];
+            if (menuItem is CheeseBurgerMeal || menuItem is CheeseBurger)
             {
-                m.GetPrerequisites();
-                m.Prepare();
-                m.Send();
+                menuItem.GetPrerequisites();
+                menuItem.Prepare();
+                menuItem.SendToService();
             }
-            else if (m is DrinkCola)
+            else if (menuItem is Drink)
             {
-                m.Send();
+                menuItem.SendToService();
             }
 
-            return m;
+            return menuItem;
         }
     }
 }

@@ -1,20 +1,20 @@
 namespace BurgerQueen.Model.MenuItems
 {
-    public class CheeseBurger : ItemData
+    public class CheeseBurger : MenuItem
     {
         public override void GetPrerequisites()
         {
-            List.Add("Bread");
-            List.Add("Ham");
-            List.Add("Salad");
+            Ingredients.Add("Bread");
+            Ingredients.Add("Ham");
+            Ingredients.Add("Salad");
         }
 
         public override void Prepare()
         {
-            Prepared = true;
+            IsPrepared = true;
         }
 
-        public override void Send()
+        public override void SendToService()
         {
             IsSentToService = true;
         }

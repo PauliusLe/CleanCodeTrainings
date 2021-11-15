@@ -2,7 +2,7 @@ using System;
 
 namespace BurgerQueen.Model.MenuItems
 {
-    public class DrinkCola : ItemData
+    public class Drink : MenuItem
     {
         public override void GetPrerequisites()
         {
@@ -14,9 +14,9 @@ namespace BurgerQueen.Model.MenuItems
             throw new NotImplementedException();
         }
 
-        public override void Send()
+        public override void SendToService()
         {
-            List.Add("Coca-cola");
+            Ingredients.Add("Coca-cola");
             IsSentToService = true;
         }
     }

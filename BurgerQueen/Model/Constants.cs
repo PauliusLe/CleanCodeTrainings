@@ -1,6 +1,6 @@
 namespace BurgerQueen.Model
 {
-    public static class Const
+    public static class Constants
     {
         public const string Drink = "Drink";
         public const string CheeseBurger = "CheeseBurger";

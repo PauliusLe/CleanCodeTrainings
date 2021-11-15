@@ -4,8 +4,8 @@ namespace BurgerQueen.Hardware.Api
 {
     internal interface IMachine
     {
-        void Printer(Receipt b);
-        void Fax(Receipt a);
+        void Print(Receipt item);
+        void Fax(Receipt item);
         void Scan(Receipt item);
     }
 }

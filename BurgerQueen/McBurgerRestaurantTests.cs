@@ -11,13 +11,13 @@ namespace BurgerQueen
     public class McBurgerRestaurantTests
     {
         private Fixture fixture;
-        private McBurgerRestaurantManager _restaurantManager;
+        private McBurgerRestaurant restaurant;
 
         [SetUp]
         public void SetUp()
         {
             fixture = new Fixture();
-            _restaurantManager = new McBurgerRestaurantManager();
+            restaurant = new McBurgerRestaurant();
         }
         
         [Test]
@@ -26,9 +26,9 @@ namespace BurgerQueen
             var orderItems = fixture.Build<OrderItem>()
                 .With(c => c.Quantity, 1)
                 .With(c => c.Price, 10)
-                .With(c => c.ItemId, Const.CheeseBurger)
+                .With(c => c.ItemId, Constants.CheeseBurger)
                 .CreateMany(1);
-            var order = fixture.Build<OrderInfo>()
+            var order = fixture.Build<Order>()
                 .With(o => o.Items, orderItems)
                 .Create();
             var fakePaymentDetails = fixture.Build<PaymentDetails>()
@@ -36,17 +36,17 @@ namespace BurgerQueen
                 .Create();
             var fakePrintReceipt = true;
 
-            var executedOrder = _restaurantManager.DoStuff(order, fakePaymentDetails, fakePrintReceipt);
+            var executedOrder = restaurant.ExecuteOrder(order, fakePaymentDetails, fakePrintReceipt);
 
             
-            var preparedItem = executedOrder.Items.Single().Item; 
+            var preparedItem = executedOrder.Items.Single().MenuItem; 
             
-            Assert.True(preparedItem.Prepared);
+            Assert.True(preparedItem.IsPrepared);
             Assert.True(preparedItem.IsSentToService);
             
-            Assert.Contains("Bread", preparedItem.List);
-            Assert.Contains("Ham", preparedItem.List);
-            Assert.Contains("Salad", preparedItem.List);
+            Assert.Contains("Bread", preparedItem.Ingredients);
+            Assert.Contains("Ham", preparedItem.Ingredients);
+            Assert.Contains("Salad", preparedItem.Ingredients);
         }
         
         [Test]
@@ -55,9 +55,9 @@ namespace BurgerQueen
             var orderItems = fixture.Build<OrderItem>()
                 .With(c => c.Quantity, 1)
                 .With(c => c.Price, 10)
-                .With(c => c.ItemId, Const.CheeseBurgerMeal)
+                .With(c => c.ItemId, Constants.CheeseBurgerMeal)
                 .CreateMany(1);
-            var order = fixture.Build<OrderInfo>()
+            var order = fixture.Build<Order>()
                 .With(o => o.Items, orderItems)
                 .Create();
             var fakePaymentDetails = fixture.Build<PaymentDetails>()
@@ -65,20 +65,20 @@ namespace BurgerQueen
                 .Create();
             var fakePrintReceipt = true;
 
-            var executedOrder = _restaurantManager.DoStuff(order, fakePaymentDetails, fakePrintReceipt);
+            var executedOrder = restaurant.ExecuteOrder(order, fakePaymentDetails, fakePrintReceipt);
 
             
-            var preparedItem = executedOrder.Items.Single().Item; 
+            var preparedItem = executedOrder.Items.Single().MenuItem; 
             
-            Assert.True(preparedItem.Prepared);
+            Assert.True(preparedItem.IsPrepared);
             Assert.True(preparedItem.IsSentToService);
             
-            Assert.Contains("Bread", preparedItem.List);
-            Assert.Contains("Ham", preparedItem.List);
-            Assert.Contains("Salad", preparedItem.List);
+            Assert.Contains("Bread", preparedItem.Ingredients);
+            Assert.Contains("Ham", preparedItem.Ingredients);
+            Assert.Contains("Salad", preparedItem.Ingredients);
             
-            Assert.Contains("Fries", preparedItem.List);
-            Assert.Contains("Coca-cola", preparedItem.List);
+            Assert.Contains("Fries", preparedItem.Ingredients);
+            Assert.Contains("Coca-cola", preparedItem.Ingredients);
         }
         
         [Test]
@@ -87,9 +87,9 @@ namespace BurgerQueen
             var orderItems = fixture.Build<OrderItem>()
                 .With(c => c.Quantity, 1)
                 .With(c => c.Price, 10)
-                .With(c => c.ItemId, Const.Drink)
+                .With(c => c.ItemId, Constants.Drink)
                 .CreateMany(1);
-            var order = fixture.Build<OrderInfo>()
+            var order = fixture.Build<Order>()
                 .With(o => o.Items, orderItems)
                 .Create();
             var fakePaymentDetails = fixture.Build<PaymentDetails>()
@@ -97,15 +97,15 @@ namespace BurgerQueen
                 .Create();
             var fakePrintReceipt = true;
 
-            var executedOrder = _restaurantManager.DoStuff(order, fakePaymentDetails, fakePrintReceipt);
+            var executedOrder = restaurant.ExecuteOrder(order, fakePaymentDetails, fakePrintReceipt);
 
             
-            var preparedItem = executedOrder.Items.Single().Item; 
+            var preparedItem = executedOrder.Items.Single().MenuItem; 
             
-            Assert.False(preparedItem.Prepared);
+            Assert.False(preparedItem.IsPrepared);
             Assert.True(preparedItem.IsSentToService);
             
-            Assert.Contains("Coca-cola", preparedItem.List);
+            Assert.Contains("Coca-cola", preparedItem.Ingredients);
         }        
 
         [Test]
@@ -114,9 +114,9 @@ namespace BurgerQueen
             var orderItems = fixture.Build<OrderItem>()
                 .With(c => c.Quantity, 1)
                 .With(c => c.Price, 10)
-                .With(c => c.ItemId, Const.CheeseBurgerMeal)
+                .With(c => c.ItemId, Constants.CheeseBurgerMeal)
                 .CreateMany(1);
-            var order = fixture.Build<OrderInfo>()
+            var order = fixture.Build<Order>()
                 .With(o => o.Items, orderItems)
                 .Create();
             var fakePaymentDetails = fixture.Build<PaymentDetails>()
@@ -124,7 +124,7 @@ namespace BurgerQueen
                 .Create();
             var fakePrintReceipt = true;
 
-            _restaurantManager.DoStuff(order, fakePaymentDetails, fakePrintReceipt);
+            restaurant.ExecuteOrder(order, fakePaymentDetails, fakePrintReceipt);
         }
 
         [Test]
@@ -133,9 +133,9 @@ namespace BurgerQueen
             var orderItems = fixture.Build<OrderItem>()
                 .With(c => c.Quantity, 1)
                 .With(c => c.Price, 5)
-                .With(c => c.ItemId, Const.Drink)
+                .With(c => c.ItemId, Constants.Drink)
                 .CreateMany(3);
-            var fakeOrder = fixture.Build<OrderInfo>()
+            var fakeOrder = fixture.Build<Order>()
                 .With(c => c.Items, orderItems)
                 .Create();
 
@@ -144,7 +144,7 @@ namespace BurgerQueen
                 .Create();
             var fakePrintReceipt = true;
 
-            _restaurantManager.DoStuff(fakeOrder, fakePaymentDetails, fakePrintReceipt);
+            restaurant.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt);
         }
 
         [Test]
@@ -153,10 +153,10 @@ namespace BurgerQueen
             var orderItems = fixture.Build<OrderItem>()
                 .With(c => c.Quantity, 5)
                 .With(c => c.Price, 5)
-                .With(c => c.ItemId, Const.CheeseBurger)
+                .With(c => c.ItemId, Constants.CheeseBurger)
                 .CreateMany(1);
 
-            var fakeOrder = fixture.Build<OrderInfo>()
+            var fakeOrder = fixture.Build<Order>()
                 .With(c => c.Items, orderItems)
                 .Create();
             var fakePaymentDetails = fixture.Build<PaymentDetails>()
@@ -165,7 +165,7 @@ namespace BurgerQueen
 
             var fakePrintReceipt = false;
 
-            _restaurantManager.Invoking(y => y.DoStuff(fakeOrder, fakePaymentDetails, fakePrintReceipt))
+            restaurant.Invoking(y => y.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt))
                 .Should().Throw<UnAuthorizedContactLessPayment>()
                 .WithMessage("Amount is too big");
         }
@@ -173,14 +173,14 @@ namespace BurgerQueen
         [Test]
         public void Should_throw_NotValidPaymentException_when_Payment_Method_is_mobile()
         {
-            var fakeOrder = fixture.Build<OrderInfo>()
+            var fakeOrder = fixture.Build<Order>()
                 .Create();
             var fakePaymentDetails = fixture.Build<PaymentDetails>()
                 .With(c => c.PaymentMethod, PaymentMethod.Mobile)
                 .Create();
             var fakePrintReceipt = true;
 
-            _restaurantManager.Invoking(y => y.DoStuff(fakeOrder, fakePaymentDetails, fakePrintReceipt))
+            restaurant.Invoking(y => y.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt))
                 .Should().Throw<NotValidPaymentException>()
                 .WithMessage("Can not charge customer");
         }
@@ -191,9 +191,9 @@ namespace BurgerQueen
             var orderItems = fixture.Build<OrderItem>()
                 .With(c => c.Quantity, 1)
                 .With(c => c.Price, 10)
-                .With(c => c.ItemId, Const.CheeseBurgerMeal)
+                .With(c => c.ItemId, Constants.CheeseBurgerMeal)
                 .CreateMany(1);
-            var fakeOrder = fixture.Build<OrderInfo>()
+            var fakeOrder = fixture.Build<Order>()
                 .With(o=>o.Items, orderItems)
                 .Create();
             var fakePaymentDetails = fixture.Build<PaymentDetails>()
@@ -201,7 +201,7 @@ namespace BurgerQueen
                 .Create();
             var fakePrintReceipt = false;
 
-            _restaurantManager.DoStuff(fakeOrder, fakePaymentDetails, fakePrintReceipt);
+            restaurant.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt);
         }
 
         [Test]
@@ -210,9 +210,9 @@ namespace BurgerQueen
             var orderItems = fixture.Build<OrderItem>()
                 .With(c => c.Quantity, 1)
                 .With(c => c.Price, 10)
-                .With(c => c.ItemId, Const.CheeseBurgerMeal)
+                .With(c => c.ItemId, Constants.CheeseBurgerMeal)
                 .CreateMany(1);
-            var fakeOrder = fixture.Build<OrderInfo>()
+            var fakeOrder = fixture.Build<Order>()
                 .With(c => c.Items, orderItems)
                 .Create();
             var fakePaymentDetails = fixture.Build<PaymentDetails>()
@@ -220,7 +220,7 @@ namespace BurgerQueen
                 .Create();
             var fakePrintReceipt = false;
 
-            _restaurantManager.DoStuff(fakeOrder, fakePaymentDetails, fakePrintReceipt);
+            restaurant.ExecuteOrder(fakeOrder, fakePaymentDetails, fakePrintReceipt);
         }
     }
 }

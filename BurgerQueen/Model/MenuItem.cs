@@ -2,14 +2,10 @@ using System.Collections.Generic;
 
 namespace BurgerQueen.Model
 {
-    //MenuItemLogic
-    public class ItemData
+    public class MenuItem
     {
-        //array of ingredients
-        public List<string> List { get; } = new List<string>();
-        public bool Prepared { get; set; }
-        
-        //Item is done and sent to service
+        public List<string> Ingredients { get; } = new List<string>();
+        public bool IsPrepared { get; set; }
         public bool IsSentToService { get; set; }
         
         public virtual void GetPrerequisites()
@@ -19,10 +15,10 @@ namespace BurgerQueen.Model
 
         public virtual void Prepare()
         {
-            //We should prepare this
+            //Preparing
         }
 
-        public virtual void Send()
+        public virtual void SendToService()
         {
             //Send to service
         }
