@@ -4,7 +4,7 @@ namespace BurgerQueen.Model
     {
         public string ItemId { get; set; }
         public int Quantity { get; set; }
-        public double Price { get; set; } 
+        public double Price { get; set; }
         public MenuItem MenuItem { get; set; } 
     }
 }

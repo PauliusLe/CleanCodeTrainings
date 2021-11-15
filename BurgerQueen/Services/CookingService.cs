@@ -1,33 +1,27 @@
 using System.Collections.Generic;
+using BurgerQueen.Interfaces;
 using BurgerQueen.Model;
 using BurgerQueen.Model.MenuItems;
 
 namespace BurgerQueen.Services
 {
-    public class CookingService
+    public class CookingService : ICookingService
     {
-        private readonly Dictionary<string, MenuItem> restaurantMenu = new Dictionary<string, MenuItem>
+        private readonly Dictionary<string, MenuItem> _restaurantMenu = new Dictionary<string, MenuItem>
         {
             {Constants.Drink, new Drink()},
             {Constants.CheeseBurger, new CheeseBurger()},
             {Constants.CheeseBurgerMeal, new CheeseBurgerMeal()}
         };
 
-        public MenuItem Prepare(string itemId)
+        public void Prepare(Order order)
         {
-            var menuItem = restaurantMenu[itemId];
-            if (menuItem is CheeseBurgerMeal || menuItem is CheeseBurger)
+            foreach (var orderItem in order.Items)
             {
-                menuItem.GetPrerequisites();
-                menuItem.Prepare();
+                var menuItem = _restaurantMenu[orderItem.ItemId];
                 menuItem.SendToService();
+                orderItem.MenuItem = menuItem;
             }
-            else if (menuItem is Drink)
-            {
-                menuItem.SendToService();
-            }
-
-            return menuItem;
         }
     }
 }

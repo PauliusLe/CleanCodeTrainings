@@ -2,8 +2,8 @@ using BurgerQueen.Model;
 
 namespace BurgerQueen.Hardware.Api
 {
-    internal interface IPrinter
+    public interface IFax
     {
-        void Print(Receipt item);
+        void Fax(Receipt receipt);
     }
 }

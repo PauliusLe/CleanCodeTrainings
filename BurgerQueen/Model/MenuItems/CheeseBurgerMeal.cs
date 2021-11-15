@@ -1,29 +1,26 @@
 namespace BurgerQueen.Model.MenuItems
 {
-    public class CheeseBurgerMeal : MenuItem
+    public class CheeseBurgerMeal : CheeseBurger
     {
-        public override void GetPrerequisites()
+        private readonly Drink _drink = new Drink();
+
+        protected override void GetPrerequisites()
         {
-            // Burger
-            Ingredients.Add("Bread");
-            Ingredients.Add("Ham");
-            Ingredients.Add("Salad");
-            
-            // Fries
+            base.GetPrerequisites();
+
             Ingredients.Add("Fries");
+        }
+
+        public override MenuItem SendToService()
+        {
+            GetPrerequisites();
+            Prepare();
+            _drink.SendToService();
             
-            // Drink
-            Ingredients.Add("Coca-cola");
-        }
-
-        public override void Prepare()
-        {
-            IsPrepared = true;
-        }
-
-        public override void SendToService()
-        {
-            IsSentToService = true;
+            Ingredients.AddRange(_drink.Ingredients);
+            
+            base.SendToService();
+            return this;
         }
     }
 }

@@ -2,11 +2,11 @@ using BurgerQueen.Model;
 
 namespace BurgerQueen.Hardware.Api
 {
-    public class HpPrinter : IMachine
+    public class HpPrinter : IPrinter, IScan, IFax
     {
         public void Print(Receipt receipt)
         {
-            //Doing some printing            
+            //Doing some printing
         }
 
         public void Fax(Receipt item)
