@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BurgerQueen", "BurgerQueen\BurgerQueen.csproj", "{EC27F537-E0D8-4DAD-BCA1-520764956E77}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solid", "Solid", "{4E60AE2B-4B5E-44BB-A456-DB1276AF3C7A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CleanTests", "CleanTests", "{CF317C80-63BD-4CAA-BD45-D8D0738F8217}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanTests", "Bank\CleanTests.csproj", "{10B03470-F85E-4AE9-A495-25ECE0BE5663}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC27F537-E0D8-4DAD-BCA1-520764956E77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC27F537-E0D8-4DAD-BCA1-520764956E77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC27F537-E0D8-4DAD-BCA1-520764956E77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC27F537-E0D8-4DAD-BCA1-520764956E77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10B03470-F85E-4AE9-A495-25ECE0BE5663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10B03470-F85E-4AE9-A495-25ECE0BE5663}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10B03470-F85E-4AE9-A495-25ECE0BE5663}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10B03470-F85E-4AE9-A495-25ECE0BE5663}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EC27F537-E0D8-4DAD-BCA1-520764956E77} = {4E60AE2B-4B5E-44BB-A456-DB1276AF3C7A}
+		{10B03470-F85E-4AE9-A495-25ECE0BE5663} = {CF317C80-63BD-4CAA-BD45-D8D0738F8217}
+	EndGlobalSection
+EndGlobal
